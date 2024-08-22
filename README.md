@@ -1,4 +1,4 @@
-# Techtalk - Reponder - AD Authentication Protocols
+# Techtalk - Responder - AD Authentication Protocols
 
 ## Menu
 
